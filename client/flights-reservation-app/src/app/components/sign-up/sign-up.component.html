@@ -1,0 +1,30 @@
+<div class="content">
+    <form [formGroup]="signupForm" class="signup-form" (submit)="signUp()">
+        <h1 class="form-title">SIGN UP!</h1>
+        <mat-form-field>
+            <mat-label>firstName</mat-label>
+            <input matInput class="firstName" formControlName="firstName">
+            <mat-error *ngIf="signupForm.controls['firstName'].errors?.['required']">First name is required.</mat-error>
+            <mat-error *ngIf="signupForm.controls['firstName'].errors?.['maxlength']">First name is too long. Maximum length is 12 characters.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>lastName</mat-label>
+            <input matInput class="lastName" formControlName="lastName">
+            <mat-error *ngIf="signupForm.controls['lastName'].errors?.['required']">Last name is required</mat-error>
+            <mat-error *ngIf="signupForm.controls['lastName'].errors?.['maxlength']">Last name is too long, Maximum length is 12 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>email</mat-label>
+            <input matInput type="email" class="email" formControlName="email">
+            <mat-error *ngIf="signupForm.controls['email'].errors?.['email']">Email format is incorrect</mat-error>
+            <mat-error *ngIf="signupForm.controls['email'].errors?.['required']">Email is required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>password</mat-label>
+            <input matInput type="password" class="password" formControlName="password">
+            <mat-error *ngIf="signupForm.controls['password'].errors?.['required']">Password is required</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="signupForm.invalid">Send</button>
+        <p class="login-p">Don't have an acount? Sign up <a class="login-link" routerLink="/login">here</a></p>
+    </form>
+</div>

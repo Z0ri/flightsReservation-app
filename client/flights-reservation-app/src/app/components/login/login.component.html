@@ -1,0 +1,17 @@
+<div class="content">
+    <form [formGroup]="loginForm" class="login-form" (submit)="login()">
+        <h1 class="form-title">Log in</h1>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+            <mat-error *ngIf="loginForm.controls['email'].errors?.['required']">Email is required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput formControlName = "password">
+            <mat-error *ngIf="loginForm.controls['password'].errors?.['required']">Password is required</mat-error>
+        </mat-form-field>
+        <button mat-raised-button type="submit" [disabled]="loginForm.invalid">Log in</button>
+        <p class="signup-p">Don't have an account? You can sign up right <a class="signup-link" routerLink="/sign-up">here!</a></p>
+    </form>
+</div>
