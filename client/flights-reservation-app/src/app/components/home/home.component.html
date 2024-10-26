@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+<div class="home-content">
+    <h1 class="title">YOU CAN BOOK YOUR NEXT TRAVEL RIGHT HERE!</h1>
+    <div class="input-container">
+        <mat-form-field class="date-input">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="destination-input">
+            <mat-label>Type here your traveling destination!</mat-label>
+            <input matInput #destinationInput>
+            <mat-icon matIconSuffix (click)="search(destinationInput.value)" style="cursor: pointer;">search</mat-icon>
+        </mat-form-field>
+        <button mat-raised-button class="go-btn">GO!</button>
+    </div>
+    <div class="bottomPart-container">
+        <img src="assets/airplane.png" class="airplane-img">
+        <h1 class="sentence">"True belonging is found within ourselves, shaped by memories of every journey..."</h1>
+        <p class="sentence-author">~A cool dude</p>
+        <button mat-raised-button class="explore-btn">Explore</button>
+    </div>
+    <footer class="footer">
+        <div class="company-info">
+            <p>&copy; 2024 FlightSeeker. All rights reserved.</p>
+            <p>Your trusted partner for finding the best flight deals.</p>
+        </div>
+        <div class="socials">
+            <ul>
+                <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+                <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+                <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+            </ul>
+        </div>
+        <div class="contacts">
+            <p>Email: <a href="mailto:contact@flightseeker.com">contact chiocciola flightseeker.com</a></p>
+            <p>Phone: <a href="tel:+1234567890">+1 (234) 567-890</a></p>
+        </div>
+    </footer>
+    
+      
+</div>

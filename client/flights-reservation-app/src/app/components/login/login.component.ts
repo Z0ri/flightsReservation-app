@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/User';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ import { User } from '../../models/User';
 export class LoginComponent{
   loginForm!: FormGroup;
 
-  constructor(private authService: AuthService){
+  constructor(private authService: AuthService, private router: Router){
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required)
@@ -33,13 +34,8 @@ export class LoginComponent{
 
   login() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value); 
-      
       const email = this.loginForm.get('email')?.value; 
       const password = this.loginForm.get('password')?.value; 
-      
-      console.log('Email:', email); 
-      console.log('Password:', password); 
       
       this.authService.login(new User(email, password));
 

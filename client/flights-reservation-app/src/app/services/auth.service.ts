@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from '@angular/fire/auth';
-import { addDoc, collection, doc, Firestore, getFirestore, setDoc } from '@angular/fire/firestore';
-import { catchError, from } from 'rxjs';
+import { doc, Firestore, getFirestore, setDoc } from '@angular/fire/firestore';
 import { User } from '../models/User';
 import { Router } from '@angular/router';
 
@@ -9,7 +8,6 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-
   constructor(
     private firestore: Firestore,
     private auth: Auth,
@@ -51,11 +49,10 @@ signUp(newUser: User) {
   login(user: User) {
     signInWithEmailAndPassword(this.auth, user.email, user.password)
     .then((userCredentials) => {
-      console.log("Successfully logged in! ", userCredentials);
+      sessionStorage.setItem("user", JSON.stringify(userCredentials.user));
       this.router.navigate(['/home']);
     }).catch((err) => {
       console.error("Error loggin in: ", err);
     });
   }
-  
 }

@@ -1,0 +1,103 @@
+app-navbar{
+    position: sticky;  
+    top: 0;
+    width: 100%;
+    z-index: 1000;     /* Ensures it stays above other content */
+}
+.home-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.title {
+    width: 70%;
+    font-size: 70px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    position: absolute;
+    margin-bottom: 25%;
+}
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+.date-input{
+    width: 200px;
+    margin: 0;
+    padding: 0;
+}
+.destination-input {
+    width: 400px;
+    margin: 0;
+    padding: 0;
+}
+.go-btn {
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    margin-bottom: 3%;
+    padding: 0;
+}
+
+.bottomPart-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.airplane-img {
+    display: block; /* or inline-block */
+    margin-top: 25%;
+    margin-right: 20%;
+    width: 80%;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.sentence {
+    display: block; /* or inline-block */
+    margin: 0;
+    padding: 0;
+    width: 600px;
+}
+
+.sentence-author{
+    font-size: 20px;
+}
+
+.bottomPart-container .explore-btn{
+    margin-top: 20px;
+    width: 100px;
+    height: 50;
+}
+
+.footer{
+    height: 400px;
+    width: 100%;
+    background-color: #000000;
+    color: white;
+    display: flex;
+    margin-top: 50px;
+}
+
+footer{
+    padding: 20px;
+}
+
+.company-info,.socials,.contacts{
+    font-size: 20px;
+    flex: 1;
+}
+a{
+    color: white;
+}
