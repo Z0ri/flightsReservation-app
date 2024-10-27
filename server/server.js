@@ -3,6 +3,7 @@ const { createServer } = require('http');
 const { Server } = require('socket.io');
 const app = express();
 const cors = require('cors');
+const flightsData = require('./api-data');
 
 
 app.use(cors({
@@ -14,8 +15,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/api/data', (request, response)=>{
+app.get('/api/flights', (request, response)=>{
     //define behaviour for get request
+    response.json(flightsData);
 });
 
 

@@ -1,0 +1,21 @@
+<mat-card class="flight-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{departureLocation}} - {{arrivalLocation}}</mat-card-title>
+      <mat-card-subtitle>airport: {{departureAirport}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image class="location-img" src="https://img.freepik.com/free-photo/flat-lay-travel-map-airplane_23-2149617643.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+        <!-- display price, credits, departure time, arrival time and departure airport-->
+        <p><strong>Arrival airport:</strong> {{arrivalAirport}}({{arrivalLocation}})</p>
+        <p><strong>Departure:</strong> {{ departureTime | date: 'short' }}</p>
+        <p><strong>Arrival:</strong> {{ arrivalTime | date: 'short' }}</p>
+        <div class="pricing-info">
+            <p><strong>Price:</strong> {{ price }}€</p>
+            <p><strong>Credits:</strong> +{{ credits }}</p>
+        </div>
+    </mat-card-content>
+    
+    <mat-card-actions>
+      <button mat-raised-button>View flight</button>
+    </mat-card-actions>
+</mat-card>

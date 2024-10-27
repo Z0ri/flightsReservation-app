@@ -1,20 +1,38 @@
 <app-navbar></app-navbar>
 <div class="home-content">
     <h1 class="title">YOU CAN BOOK YOUR NEXT TRAVEL RIGHT HERE!</h1>
-    <div class="input-container">
-        <mat-form-field class="date-input">
-            <mat-label>Choose a date</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+    <form [formGroup]="searchForm" (ngSubmit)="search()" class="input-container">
+        <mat-form-field class="departure-input">
+            <mat-label>Type here from where you want to depart</mat-label>
+            <select matNativeControl formControlName="departureLocation">
+                <option *ngFor="let departure of departures" [value]="departure">{{ departure }}</option>
+            </select>
         </mat-form-field>
+    
         <mat-form-field class="destination-input">
             <mat-label>Type here your traveling destination!</mat-label>
-            <input matInput #destinationInput>
-            <mat-icon matIconSuffix (click)="search(destinationInput.value)" style="cursor: pointer;">search</mat-icon>
+            <select matNativeControl formControlName="arrivalLocation">
+                <option *ngFor="let destination of destinations" [value]="destination">{{ destination }}</option>
+            </select>
         </mat-form-field>
-        <button mat-raised-button class="go-btn">GO!</button>
-    </div>
+    
+        <mat-form-field class="departure-date">
+            <mat-label>Choose a departure date</mat-label>
+            <input matInput [matDatepicker]="departurePicker" formControlName="departureTime">
+            <mat-datepicker-toggle matIconSuffix [for]="departurePicker"></mat-datepicker-toggle>
+            <mat-datepicker #departurePicker></mat-datepicker>
+        </mat-form-field>
+    
+        <mat-form-field class="arrival-date">
+            <mat-label>Choose an arrival date</mat-label>
+            <input matInput [matDatepicker]="arrivalPicker" formControlName="arrivalTime">
+            <mat-datepicker-toggle matIconSuffix [for]="arrivalPicker"></mat-datepicker-toggle>
+            <mat-datepicker #arrivalPicker></mat-datepicker>
+        </mat-form-field>
+    
+        <button mat-raised-button type="submit" class="go-btn">GO!</button>
+    </form>
+    
     <div class="bottomPart-container">
         <img src="assets/airplane.png" class="airplane-img">
         <h1 class="sentence">"True belonging is found within ourselves, shaped by memories of every journey..."</h1>

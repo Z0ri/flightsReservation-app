@@ -1,0 +1,10 @@
+.location-img{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.pricing-info{
+    display: flex;
+    gap: 5px;
+}

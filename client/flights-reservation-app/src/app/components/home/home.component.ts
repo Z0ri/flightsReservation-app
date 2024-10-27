@@ -1,23 +1,30 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { NavbarComponent } from "../navbar/navbar.component";
-import { Subject } from 'rxjs';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
-import {provideNativeDateAdapter} from '@angular/material/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { Subject, takeUntil } from 'rxjs';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SearchService } from '../../services/search.service';
+import { Flight } from '../../models/Flight';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   providers: [provideNativeDateAdapter()],
   imports: [
+    CommonModule,
     NavbarComponent,
-    MatLabel,
     MatIconModule,
     MatFormFieldModule, 
+    ReactiveFormsModule,
+    FormsModule,
     MatInputModule, 
     MatDatepickerModule,
     MatButtonModule
@@ -26,10 +33,29 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./home.component.css'], 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>;
-
-  constructor() {}
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+  searchForm!: FormGroup; // Removed private since it should be accessible in the template
+  private destroy$ = new Subject<void>();
+  destinations: string[] = [];
+  departures: string[] = [];
+  
+  constructor(
+    private router: Router,
+    private searchService: SearchService,
+    private cookieService: CookieService,
+    private cd: ChangeDetectorRef
+  ) {
+    this.searchForm = new FormGroup({
+      departureLocation: new FormControl<string>('', Validators.required),
+      arrivalLocation: new FormControl<string>('', Validators.required),
+      departureTime: new FormControl<Date | null>(null, Validators.required),
+      arrivalTime: new FormControl<Date | null>(null, Validators.required),
+    });
+  }
+  ngAfterViewInit(): void {
+    this.getDepartures();
+    this.getDestinations();
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -37,10 +63,39 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    //get user id
+    // Get user ID or other initialization logic
   }
 
-  search(searchValue: string){
+  search() {
+    if(this.searchForm.valid){
+      const searchParameters = this.searchForm.value;
+      this.searchService.search$.next(searchParameters);
+      this.router.navigate(['/search-page']);
+    }
+  }
+  //get possible destinations
+  getDestinations(){
+    this.searchService.fetchFlights().pipe(takeUntil(this.destroy$))
+    .subscribe((flights: Flight[])=>{
+      flights.forEach(flight => {
+        if(!this.destinations.includes(flight.arrivalLocation)){
+          this.destinations.push(flight.arrivalLocation);
+        }
+      });
+    });
+    this.cd.detectChanges();
+  }
 
+  //get possible departures
+  getDepartures(){
+    this.searchService.fetchFlights().pipe(takeUntil(this.destroy$))
+    .subscribe((flights: Flight[])=>{
+      flights.forEach(flight => {
+        if(!this.departures.includes(flight.departureLocation)){
+          this.departures.push(flight.departureLocation);
+        }
+      });
+    });
+    this.cd.detectChanges();
   }
 }

@@ -1,0 +1,19 @@
+<app-navbar></app-navbar>
+<div class="error-container" *ngIf="!flightFound">
+    <h4 class="no-flight-found">No flight found, update search paramteres: <a routerLink="/home">here</a></h4>
+</div>
+<div class="flights-container" *ngIf="flightFound">
+  <app-flight-card 
+      *ngFor="let flight of flights" 
+      [id]="flight.id" 
+      [departureAirport]="flight.departureAirport" 
+      [departureLocation]="flight.departureLocation" 
+      [departureTime]="flight.departureTime" 
+      [arrivalAirport]="flight.arrivalAirport" 
+      [arrivalLocation]="flight.arrivalLocation" 
+      [arrivalTime]="flight.arrivalTime" 
+      [price]="flight.price"
+      [credits]="flight.credits"
+      >
+  </app-flight-card>
+</div>

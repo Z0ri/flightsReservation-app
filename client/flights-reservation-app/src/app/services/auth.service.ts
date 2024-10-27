@@ -49,7 +49,9 @@ signUp(newUser: User) {
   login(user: User) {
     signInWithEmailAndPassword(this.auth, user.email, user.password)
     .then((userCredentials) => {
-      sessionStorage.setItem("user", JSON.stringify(userCredentials.user));
+      if(typeof window !== 'undefined'){
+        sessionStorage.setItem("user", JSON.stringify(userCredentials.user));
+      }
       this.router.navigate(['/home']);
     }).catch((err) => {
       console.error("Error loggin in: ", err);
