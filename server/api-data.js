@@ -6,20 +6,20 @@ const flights = [
         departureTime: new Date('2024-11-05T14:30:00'),
         arrivalAirport: 'NRT',
         arrivalLocation: 'Tokyo, Japan',
-        arrivalTime: new Date('2024-11-06T02:30:00'), // 12 ore di volo
-        price: 1100, // Prezzo rivisto in euro
-        credits: 18 // 12 ore * 1.5
+        arrivalTime: new Date('2024-11-06T02:30:00'),
+        price: 1100,
+        credits: 18
     },
     {
         id: 2,
-        departureAirport: 'FCO',
+        departureAirport: 'CIA',
         departureLocation: 'Rome, Italy',
         departureTime: new Date('2024-11-10T14:30:00'),
         arrivalAirport: 'MXP',
         arrivalLocation: 'Milan, Italy',
-        arrivalTime: new Date('2024-11-10T15:30:00'), // 1 ora di volo
-        price: 100, // Prezzo rivisto in euro
-        credits: 1.5 // 1 ora * 1.5
+        arrivalTime: new Date('2024-11-10T15:30:00'),
+        price: 100,
+        credits: 1.5
     },
     {
         id: 3,
@@ -28,20 +28,20 @@ const flights = [
         departureTime: new Date('2024-11-15T14:30:00'),
         arrivalAirport: 'JFK',
         arrivalLocation: 'New York, USA',
-        arrivalTime: new Date('2024-11-15T22:30:00'), // 8 ore di volo
-        price: 750, // Prezzo rivisto in euro
-        credits: 12 // 8 ore * 1.5
+        arrivalTime: new Date('2024-11-15T22:30:00'),
+        price: 750,
+        credits: 12
     },
     {
         id: 4,
         departureAirport: 'MXP',
         departureLocation: 'Milan, Italy',
         departureTime: new Date('2024-12-01T14:30:00'),
-        arrivalAirport: 'NRT',
+        arrivalAirport: 'HND',
         arrivalLocation: 'Tokyo, Japan',
-        arrivalTime: new Date('2024-12-02T02:30:00'), // 12 ore di volo
-        price: 1150, // Prezzo rivisto in euro
-        credits: 18 // 12 ore * 1.5
+        arrivalTime: new Date('2024-12-02T02:30:00'),
+        price: 1150,
+        credits: 18
     },
     {
         id: 5,
@@ -50,53 +50,53 @@ const flights = [
         departureTime: new Date('2025-01-10T14:30:00'),
         arrivalAirport: 'JFK',
         arrivalLocation: 'New York, USA',
-        arrivalTime: new Date('2025-01-10T23:30:00'), // 9 ore di volo
-        price: 800, // Prezzo rivisto in euro
-        credits: 13.5 // 9 ore * 1.5
+        arrivalTime: new Date('2025-01-10T23:30:00'),
+        price: 800,
+        credits: 13.5
     },
     {
         id: 6,
         departureAirport: 'JFK',
         departureLocation: 'New York, USA',
         departureTime: new Date('2025-02-01T14:30:00'),
-        arrivalAirport: 'FCO',
+        arrivalAirport: 'CIA',
         arrivalLocation: 'Rome, Italy',
-        arrivalTime: new Date('2025-02-01T22:30:00'), // 8 ore di volo
-        price: 700, // Prezzo rivisto in euro
-        credits: 12 // 8 ore * 1.5
+        arrivalTime: new Date('2025-02-01T22:30:00'),
+        price: 700,
+        credits: 12
     },
     {
         id: 7,
         departureAirport: 'JFK',
         departureLocation: 'New York, USA',
         departureTime: new Date('2025-03-15T14:30:00'),
-        arrivalAirport: 'MXP',
+        arrivalAirport: 'LIN',
         arrivalLocation: 'Milan, Italy',
-        arrivalTime: new Date('2025-03-15T23:30:00'), // 9 ore di volo
-        price: 800, // Prezzo rivisto in euro
-        credits: 13.5 // 9 ore * 1.5
+        arrivalTime: new Date('2025-03-15T23:30:00'),
+        price: 800,
+        credits: 13.5
     },
     {
         id: 8,
-        departureAirport: 'NRT',
+        departureAirport: 'HND',
         departureLocation: 'Tokyo, Japan',
         departureTime: new Date('2025-04-01T14:30:00'),
         arrivalAirport: 'FCO',
         arrivalLocation: 'Rome, Italy',
-        arrivalTime: new Date('2025-04-02T02:30:00'), // 12 ore di volo
-        price: 1150, // Prezzo rivisto in euro
-        credits: 18 // 12 ore * 1.5
+        arrivalTime: new Date('2025-04-02T02:30:00'),
+        price: 1150,
+        credits: 18
     },
     {
         id: 9,
-        departureAirport: 'NRT',
+        departureAirport: 'HND',
         departureLocation: 'Tokyo, Japan',
         departureTime: new Date('2025-05-01T14:30:00'),
-        arrivalAirport: 'MXP',
+        arrivalAirport: 'LIN',
         arrivalLocation: 'Milan, Italy',
-        arrivalTime: new Date('2025-05-02T02:30:00'), // 12 ore di volo
-        price: 1150, // Prezzo rivisto in euro
-        credits: 18 // 12 ore * 1.5
+        arrivalTime: new Date('2025-05-02T02:30:00'),
+        price: 1150,
+        credits: 18
     },
     {
         id: 10,
@@ -105,10 +105,449 @@ const flights = [
         departureTime: new Date('2025-06-15T14:30:00'),
         arrivalAirport: 'JFK',
         arrivalLocation: 'New York, USA',
-        arrivalTime: new Date('2025-06-16T04:30:00'), // 14 ore di volo
-        price: 1400, // Prezzo rivisto in euro
-        credits: 21 // 14 ore * 1.5
+        arrivalTime: new Date('2025-06-16T04:30:00'),
+        price: 1400,
+        credits: 21
+    },
+    {
+        id: 11,
+        departureAirport: 'CIA',
+        departureLocation: 'Rome, Italy',
+        departureTime: new Date('2025-07-01T06:30:00'),
+        arrivalAirport: 'HND',
+        arrivalLocation: 'Tokyo, Japan',
+        arrivalTime: new Date('2025-07-01T18:30:00'),
+        price: 1200,
+        credits: 18
+    },
+    {
+        id: 12,
+        departureAirport: 'LIN',
+        departureLocation: 'Milan, Italy',
+        departureTime: new Date('2025-07-05T12:00:00'),
+        arrivalAirport: 'FCO',
+        arrivalLocation: 'Rome, Italy',
+        arrivalTime: new Date('2025-07-05T13:00:00'),
+        price: 120,
+        credits: 1.5
+    },
+    {
+        id: 13,
+        departureAirport: 'MXP',
+        departureLocation: 'Milan, Italy',
+        departureTime: new Date('2025-08-10T17:30:00'),
+        arrivalAirport: 'HND',
+        arrivalLocation: 'Tokyo, Japan',
+        arrivalTime: new Date('2025-08-11T05:30:00'),
+        price: 1150,
+        credits: 18
+    },
+    {
+        id: 14,
+        departureAirport: 'NRT',
+        departureLocation: 'Tokyo, Japan',
+        departureTime: new Date('2025-09-01T00:00:00'),
+        arrivalAirport: 'CIA',
+        arrivalLocation: 'Rome, Italy',
+        arrivalTime: new Date('2025-09-01T12:00:00'),
+        price: 1150,
+        credits: 18
+    },
+    {
+        id: 15,
+        departureAirport: 'CIA',
+        departureLocation: 'Rome, Italy',
+        departureTime: new Date('2025-09-10T10:30:00'),
+        arrivalAirport: 'JFK',
+        arrivalLocation: 'New York, USA',
+        arrivalTime: new Date('2025-09-10T18:30:00'),
+        price: 800,
+        credits: 12
+    },
+    {
+        id: 16,
+        departureAirport: 'LIN',
+        departureLocation: 'Milan, Italy',
+        departureTime: new Date('2025-09-15T07:15:00'),
+        arrivalAirport: 'NRT',
+        arrivalLocation: 'Tokyo, Japan',
+        arrivalTime: new Date('2025-09-15T19:15:00'),
+        price: 1200,
+        credits: 18
+    },
+    {
+        id: 17,
+        departureAirport: 'FCO',
+        departureLocation: 'Rome, Italy',
+        departureTime: new Date('2025-10-20T14:45:00'),
+        arrivalAirport: 'HND',
+        arrivalLocation: 'Tokyo, Japan',
+        arrivalTime: new Date('2025-10-21T02:45:00'),
+        price: 1100,
+        credits: 18
+    },
+    {
+        id: 18,
+        departureAirport: 'CIA',
+        departureLocation: 'Rome, Italy',
+        departureTime: new Date('2025-10-30T14:00:00'),
+        arrivalAirport: 'LIN',
+        arrivalLocation: 'Milan, Italy',
+        arrivalTime: new Date('2025-10-30T15:00:00'),
+        price: 100,
+        credits: 1.5
+    },
+    {
+        id: 19,
+        departureAirport: 'MXP',
+        departureLocation: 'Milan, Italy',
+        departureTime: new Date('2025-11-01T13:30:00'),
+        arrivalAirport: 'JFK',
+        arrivalLocation: 'New York, USA',
+        arrivalTime: new Date('2025-11-01T21:30:00'),
+        price: 750,
+        credits: 12
+    },
+    {
+        id: 20,
+        departureAirport: 'LIN',
+        departureLocation: 'Milan, Italy',
+        departureTime: new Date('2025-11-11T08:45:00'),
+        arrivalAirport: 'FCO',
+        arrivalLocation: 'Rome, Italy',
+        arrivalTime: new Date('2025-11-11T09:45:00'),
+        price: 100,
+        credits: 1.5
+    },
+    {
+        id: 21,
+        departureAirport: 'JFK',
+        departureLocation: 'New York, USA',
+        departureTime: new Date('2025-11-20T14:30:00'),
+        arrivalAirport: 'FCO',
+        arrivalLocation: 'Rome, Italy',
+        arrivalTime: new Date('2025-11-21T02:30:00'),
+        price: 700,
+        credits: 12
+    },
+    {
+        id: 22,
+        departureAirport: 'FCO',
+        departureLocation: 'Rome, Italy',
+        departureTime: new Date('2025-12-01T10:00:00'),
+        arrivalAirport: 'MXP',
+        arrivalLocation: 'Milan, Italy',
+        arrivalTime: new Date('2025-12-01T11:00:00'),
+        price: 100,
+        credits: 1.5
+    },
+    {
+        id: 23,
+        departureAirport: 'MXP',
+        departureLocation: 'Milan, Italy',
+        departureTime: new Date('2025-12-15T09:30:00'),
+        arrivalAirport: 'JFK',
+        arrivalLocation: 'New York, USA',
+        arrivalTime: new Date('2025-12-15T17:30:00'),
+        price: 800,
+        credits: 13
+    },
+    {
+        id: 24,
+        departureAirport: 'JFK',
+        departureLocation: 'New York, USA',
+        departureTime: new Date('2026-01-05T15:00:00'),
+        arrivalAirport: 'HND',
+        arrivalLocation: 'Tokyo, Japan',
+        arrivalTime: new Date('2026-01-06T05:00:00'),
+        price: 1200,
+        credits: 18
+    },
+    {
+        id: 25,
+        departureAirport: 'HND',
+        departureLocation: 'Tokyo, Japan',
+        departureTime: new Date('2026-02-10T20:15:00'),
+        arrivalAirport: 'FCO',
+        arrivalLocation: 'Rome, Italy',
+        arrivalTime: new Date('2026-02-11T06:15:00'),
+        price: 1150,
+        credits: 18
+    },
+    {
+        id: 26,
+        departureAirport: 'HND',
+        departureLocation: 'Tokyo, Japan',
+        departureTime: new Date('2026-03-15T12:00:00'),
+        arrivalAirport: 'LIN',
+        arrivalLocation: 'Milan, Italy',
+        arrivalTime: new Date('2026-03-15T20:00:00'),
+        price: 1150,
+        credits: 18
+    },
+    {
+        id: 27,
+        departureAirport: 'CIA',
+        departureLocation: 'Rome, Italy',
+        departureTime: new Date('2026-04-01T14:30:00'),
+        arrivalAirport: 'NRT',
+        arrivalLocation: 'Tokyo, Japan',
+        arrivalTime: new Date('2026-04-01T22:30:00'),
+        price: 1100,
+        credits: 18
+    },
+    {
+        id: 28,
+        departureAirport: 'MXP',
+        departureLocation: 'Milan, Italy',
+        departureTime: new Date('2026-05-05T09:00:00'),
+        arrivalAirport: 'CIA',
+        arrivalLocation: 'Rome, Italy',
+        arrivalTime: new Date('2026-05-05T10:00:00'),
+        price: 100,
+        credits: 1.5
+    },
+    {
+        id: 29,
+        departureAirport: 'JFK',
+        departureLocation: 'New York, USA',
+        departureTime: new Date('2026-06-10T17:00:00'),
+        arrivalAirport: 'MXP',
+        arrivalLocation: 'Milan, Italy',
+        arrivalTime: new Date('2026-06-11T05:00:00'),
+        price: 900,
+        credits: 14
+    },
+    {
+        id: 30,
+        departureAirport: 'FCO',
+        departureLocation: 'Rome, Italy',
+        departureTime: new Date('2026-07-01T08:00:00'),
+        arrivalAirport: 'JFK',
+        arrivalLocation: 'New York, USA',
+        arrivalTime: new Date('2026-07-01T16:00:00'),
+        price: 800,
+        credits: 12
+    },
+    {
+        id: 31,
+        departureAirport: 'LIN',
+        departureLocation: 'Milan, Italy',
+        departureTime: new Date('2026-08-05T11:00:00'),
+        arrivalAirport: 'FCO',
+        arrivalLocation: 'Rome, Italy',
+        arrivalTime: new Date('2026-08-05T12:00:00'),
+        price: 90,
+        credits: 1.5
+    },
+    {
+        id: 32,
+        departureAirport: 'JFK',
+        departureLocation: 'New York, USA',
+        departureTime: new Date('2026-09-15T14:30:00'),
+        arrivalAirport: 'HND',
+        arrivalLocation: 'Tokyo, Japan',
+        arrivalTime: new Date('2026-09-16T05:30:00'),
+        price: 1300,
+        credits: 18
+    },
+    {
+        id: 33,
+        departureAirport: 'HND',
+        departureLocation: 'Tokyo, Japan',
+        departureTime: new Date('2026-10-01T17:00:00'),
+        arrivalAirport: 'MXP',
+        arrivalLocation: 'Milan, Italy',
+        arrivalTime: new Date('2026-10-02T05:00:00'),
+        price: 1150,
+        credits: 18
+    },
+    {
+        id: 34,
+        departureAirport: 'FCO',
+        departureLocation: 'Rome, Italy',
+        departureTime: new Date('2026-11-10T09:00:00'),
+        arrivalAirport: 'NRT',
+        arrivalLocation: 'Tokyo, Japan',
+        arrivalTime: new Date('2026-11-10T20:00:00'),
+        price: 1100,
+        credits: 18
+    },
+    {
+        id: 35,
+        departureAirport: 'MXP',
+        departureLocation: 'Milan, Italy',
+        departureTime: new Date('2026-12-20T13:00:00'),
+        arrivalAirport: 'JFK',
+        arrivalLocation: 'New York, USA',
+        arrivalTime: new Date('2026-12-20T21:00:00'),
+        price: 950,
+        credits: 14
+    },
+    {
+        id: 36,
+        departureAirport: 'CIA',
+        departureLocation: 'Rome, Italy',
+        departureTime: new Date('2027-01-15T07:30:00'),
+        arrivalAirport: 'LIN',
+        arrivalLocation: 'Milan, Italy',
+        arrivalTime: new Date('2027-01-15T08:30:00'),
+        price: 80,
+        credits: 1
+    },
+    {
+        id: 37,
+        departureAirport: 'LIN',
+        departureLocation: 'Milan, Italy',
+        departureTime: new Date('2027-02-05T12:00:00'),
+        arrivalAirport: 'FCO',
+        arrivalLocation: 'Rome, Italy',
+        arrivalTime: new Date('2027-02-05T13:00:00'),
+        price: 85,
+        credits: 1.5
+    },
+    {
+        id: 38,
+        departureAirport: 'JFK',
+        departureLocation: 'New York, USA',
+        departureTime: new Date('2027-03-10T15:00:00'),
+        arrivalAirport: 'FCO',
+        arrivalLocation: 'Rome, Italy',
+        arrivalTime: new Date('2027-03-11T06:00:00'),
+        price: 900,
+        credits: 12
+    },
+    {
+        id: 39,
+        departureAirport: 'HND',
+        departureLocation: 'Tokyo, Japan',
+        departureTime: new Date('2027-04-20T22:00:00'),
+        arrivalAirport: 'MXP',
+        arrivalLocation: 'Milan, Italy',
+        arrivalTime: new Date('2027-04-21T07:00:00'),
+        price: 1150,
+        credits: 18
+    },
+    {
+        id: 40,
+        departureAirport: 'FCO',
+        departureLocation: 'Rome, Italy',
+        departureTime: new Date('2027-05-15T09:45:00'),
+        arrivalAirport: 'JFK',
+        arrivalLocation: 'New York, USA',
+        arrivalTime: new Date('2027-05-15T18:45:00'),
+        price: 950,
+        credits: 14
+    },
+    {
+        id: 41,
+        departureAirport: 'MXP',
+        departureLocation: 'Milan, Italy',
+        departureTime: new Date('2027-06-30T11:30:00'),
+        arrivalAirport: 'CIA',
+        arrivalLocation: 'Rome, Italy',
+        arrivalTime: new Date('2027-06-30T12:30:00'),
+        price: 95,
+        credits: 1.5
+    },
+    {
+        id: 42,
+        departureAirport: 'CIA',
+        departureLocation: 'Rome, Italy',
+        departureTime: new Date('2027-07-20T18:00:00'),
+        arrivalAirport: 'HND',
+        arrivalLocation: 'Tokyo, Japan',
+        arrivalTime: new Date('2027-07-21T06:00:00'),
+        price: 1100,
+        credits: 18
+    },
+    {
+        id: 43,
+        departureAirport: 'HND',
+        departureLocation: 'Tokyo, Japan',
+        departureTime: new Date('2027-08-15T14:00:00'),
+        arrivalAirport: 'JFK',
+        arrivalLocation: 'New York, USA',
+        arrivalTime: new Date('2027-08-15T20:00:00'),
+        price: 1300,
+        credits: 18
+    },
+    {
+        id: 44,
+        departureAirport: 'JFK',
+        departureLocation: 'New York, USA',
+        departureTime: new Date('2027-09-05T12:00:00'),
+        arrivalAirport: 'MXP',
+        arrivalLocation: 'Milan, Italy',
+        arrivalTime: new Date('2027-09-06T06:00:00'),
+        price: 950,
+        credits: 14
+    },
+    {
+        id: 45,
+        departureAirport: 'MXP',
+        departureLocation: 'Milan, Italy',
+        departureTime: new Date('2027-10-10T10:30:00'),
+        arrivalAirport: 'FCO',
+        arrivalLocation: 'Rome, Italy',
+        arrivalTime: new Date('2027-10-10T11:30:00'),
+        price: 90,
+        credits: 1.5
+    },
+    {
+        id: 46,
+        departureAirport: 'FCO',
+        departureLocation: 'Rome, Italy',
+        departureTime: new Date('2027-11-01T08:00:00'),
+        arrivalAirport: 'NRT',
+        arrivalLocation: 'Tokyo, Japan',
+        arrivalTime: new Date('2027-11-01T21:00:00'),
+        price: 1150,
+        credits: 18
+    },
+    {
+        id: 47,
+        departureAirport: 'NRT',
+        departureLocation: 'Tokyo, Japan',
+        departureTime: new Date('2027-11-30T20:00:00'),
+        arrivalAirport: 'JFK',
+        arrivalLocation: 'New York, USA',
+        arrivalTime: new Date('2027-12-01T06:00:00'),
+        price: 1300,
+        credits: 18
+    },
+    {
+        id: 48,
+        departureAirport: 'JFK',
+        departureLocation: 'New York, USA',
+        departureTime: new Date('2028-01-20T10:00:00'),
+        arrivalAirport: 'MXP',
+        arrivalLocation: 'Milan, Italy',
+        arrivalTime: new Date('2028-01-20T18:00:00'),
+        price: 950,
+        credits: 14
+    },
+    {
+        id: 49,
+        departureAirport: 'MXP',
+        departureLocation: 'Milan, Italy',
+        departureTime: new Date('2028-02-14T12:00:00'),
+        arrivalAirport: 'FCO',
+        arrivalLocation: 'Rome, Italy',
+        arrivalTime: new Date('2028-02-14T13:00:00'),
+        price: 90,
+        credits: 1.5
+    },
+    {
+        id: 50,
+        departureAirport: 'FCO',
+        departureLocation: 'Rome, Italy',
+        departureTime: new Date('2028-03-10T09:00:00'),
+        arrivalAirport: 'HND',
+        arrivalLocation: 'Tokyo, Japan',
+        arrivalTime: new Date('2028-03-10T21:00:00'),
+        price: 1200,
+        credits: 18
     }
 ];
-
 module.exports = flights;

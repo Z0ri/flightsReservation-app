@@ -1,13 +1,12 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
-import { filter, skip, Subject, takeUntil } from 'rxjs';
+import { filter, Subject, takeUntil } from 'rxjs';
 import { Flight } from '../../models/Flight';
 import { SearchService } from '../../services/search.service';
 import { NavigationEnd, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import { CookieService } from 'ngx-cookie-service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { FlightCardComponent } from "../../models/flight-card/flight-card.component";
 
@@ -21,11 +20,12 @@ import { FlightCardComponent } from "../../models/flight-card/flight-card.compon
     MatButtonModule,
     MatCardModule,
     FlightCardComponent
-],
+  ],
   templateUrl: './search-page.component.html',
-  styleUrl: './search-page.component.css'
+  styleUrls: ['./search-page.component.css' // corrected from 'styleUrl' to 'styleUrls'
+  ]
 })
-export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy{
+export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy {
   flights: Flight[] = [];
   flightFound: boolean = false;
   private destroy$ = new Subject<void>();
@@ -33,15 +33,14 @@ export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy{
   constructor(
     private searchService: SearchService,
     private router: Router,
-    private cookieService: CookieService,
     private cd: ChangeDetectorRef
-  ){}
+  ) {}
 
   ngOnInit(): void {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd))
-    .subscribe(()=>{
-      this.cookieService.delete("searchParameters");
-    });
+      .subscribe(() => {
+        sessionStorage.removeItem("searchParameters");
+      });
   }
 
   ngOnDestroy(): void {
@@ -49,50 +48,70 @@ export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy{
     this.destroy$.complete();
   }
 
-  
-
-
   ngAfterViewInit(): void {
-    if(this.cookieService.get("searchParameters")){
-      const searchParameters = JSON.parse(this.cookieService.get("searchParameters"));
-      console.log("search parameters in ngAfterViewInit: ", searchParameters);
-      console.log("arrival location: ", searchParameters.arrivalLocation);
-      
+    const searchParameters = sessionStorage.getItem("searchParameters");
+    if (searchParameters) {
+      const parsedParameters = JSON.parse(searchParameters);
       this.searchService.fetchFlights().pipe(takeUntil(this.destroy$))
-      .subscribe((flights: Flight[]) => {
-        flights.forEach(flight => {
-          if(flight.arrivalLocation ==  searchParameters.arrivalLocation && 
-            flight.departureLocation == searchParameters.departureLocation
-          ){
-            this.flightFound = true;
-            this.flights.push(flight);
-            this.cd.detectChanges();
-          }
-        });
-      });
-    }else{
-      this.searchService.search$.pipe(takeUntil(this.destroy$))
-      .subscribe((searchParameters: any)=>{
-        this.cookieService.set("searchParameters", JSON.stringify(searchParameters));
-        this.searchService.fetchFlights().pipe(takeUntil(this.destroy$))
         .subscribe((flights: Flight[]) => {
           flights.forEach(flight => {
-            if(flight.arrivalLocation ==  searchParameters.arrivalLocation && 
-              flight.departureLocation == searchParameters.departureLocation
-            ){
-              console.log("Flight pushato: ", flight);
+            // Create a Date object for the flight's departure time
+            let departureDate = new Date(flight.departureTime);
+            
+            // Create a Date object for the search parameters' departure time
+            let searchDate = new Date(parsedParameters.departureDate);
+            const [searchHours, searchMinutes] = parsedParameters.departureTime.split(':').map(Number);
+            
+            // Set the hours and minutes for searchDate based on the search time
+            searchDate.setHours(searchHours, searchMinutes);
+  
+            // Check if the flight matches the search criteria
+            if (flight.arrivalLocation === parsedParameters.arrivalLocation &&
+                flight.departureLocation === parsedParameters.departureLocation &&
+                departureDate >= searchDate) {
+              
+              console.log("flight Departure Date: ", departureDate);
+              console.log("parameters Search Date: ", searchDate);
+              console.log("date comparison: ", departureDate >= searchDate);
               this.flightFound = true;
-              this.cd.detectChanges();
               this.flights.push(flight);
-              console.log("Flight pushato.");
+              this.cd.detectChanges();
             }
           });
         });
-      });
+    } else {
+      this.searchService.search$.pipe(takeUntil(this.destroy$))
+        .subscribe((searchParameters: any) => {
+          sessionStorage.setItem("searchParameters", JSON.stringify(searchParameters)); // Store search parameters in sessionStorage
+          this.searchService.fetchFlights().pipe(takeUntil(this.destroy$))
+            .subscribe((flights: Flight[]) => {
+              flights.forEach(flight => {
+                // Create a Date object for the flight's departure time
+                let departureDate = new Date(flight.departureTime);
+  
+                // Create a Date object for the search parameters' departure time
+                let searchDate = new Date(searchParameters.departureDate);
+                const [searchHours, searchMinutes] = searchParameters.departureTime.split(':').map(Number);
+                
+                // Set the hours and minutes for searchDate based on the search time
+                searchDate.setHours(searchHours, searchMinutes);
+  
+                // Check if the flight matches the search criteria
+                if (flight.arrivalLocation === searchParameters.arrivalLocation &&
+                    flight.departureLocation === searchParameters.departureLocation &&
+                    departureDate >= searchDate) {
+  
+                  console.log("Flight Departure Date: ", departureDate.toISOString()); // Log in ISO format for clarity
+                  console.log("Search Date: ", searchDate.toISOString()); // Log in ISO format for clarity
+                  console.log("Date Comparison: ", departureDate >= searchDate);                      
+                  this.flightFound = true;
+                  this.flights.push(flight);
+                  this.cd.detectChanges();
+                }
+              });
+            });
+        });
     }
-
-
   }
-
   
 }

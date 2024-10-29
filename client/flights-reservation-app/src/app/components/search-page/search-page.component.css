@@ -18,18 +18,21 @@ app-navbar{
     height: 100%;
     display: flex;            
     flex-direction: row;     
-    justify-content: start;  
-    align-items: start;      
-    flex-wrap: nowrap; 
-    gap: 4%;
-    margin-left: 4%;       
+    justify-content: flex-start;  
+    align-items: flex-start;      
+    flex-wrap: wrap; /* Ensure items wrap to the next line */
+    gap: 4%; /* Space between the items */
+    margin-left: 1%;       
     margin-top: 50px;
 }
 
 app-flight-card {
     max-width: 30%;
-    height: 25%;
 }
+
+
+
+
 .example-header-image {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;

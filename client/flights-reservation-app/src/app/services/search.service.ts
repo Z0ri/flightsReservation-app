@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { Flight } from '../models/Flight';
 
 @Injectable({
@@ -16,8 +16,35 @@ export class SearchService {
   ) { }
 
   //fetch flights api
-  fetchFlights(){
+  public fetchFlights(){
     return this.http.get<Flight[]>(this.apiUrl);
+  }
+
+  public getDestinations(destroy$: Subject<void>): string[]{
+    let destinations: string[] = [];
+    this.fetchFlights().pipe(takeUntil(destroy$))
+    .subscribe((flights: Flight[])=>{
+      flights.forEach(flight => {
+        if(!destinations.includes(flight.arrivalLocation)){
+          destinations.push(flight.arrivalLocation);
+        }
+      });
+    });
+    return destinations;
+  }
+
+  //get possible departures
+  public getDepartures(destroy$: Subject<void>): string[]{
+    let departures: string[] = [];
+    this.fetchFlights().pipe(takeUntil(destroy$))
+    .subscribe((flights: Flight[])=>{
+      flights.forEach(flight => {
+        if(!departures.includes(flight.departureLocation)){
+          departures.push(flight.departureLocation);
+        }
+      });
+    });
+    return departures;
   }
 
   public get search$(): BehaviorSubject<any> {

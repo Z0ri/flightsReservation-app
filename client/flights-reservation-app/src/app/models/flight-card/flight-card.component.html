@@ -7,8 +7,8 @@
     <mat-card-content>
         <!-- display price, credits, departure time, arrival time and departure airport-->
         <p><strong>Arrival airport:</strong> {{arrivalAirport}}({{arrivalLocation}})</p>
-        <p><strong>Departure:</strong> {{ departureTime | date: 'short' }}</p>
-        <p><strong>Arrival:</strong> {{ arrivalTime | date: 'short' }}</p>
+        <p><strong>Departure:</strong> {{ departureDate | date: 'dd/MM/yy HH,mm' }}</p>
+        <p><strong>Arrival:</strong> {{ arrivalDate | date: 'dd/MM/yy HH,mm' }}</p>           
         <div class="pricing-info">
             <p><strong>Price:</strong> {{ price }}€</p>
             <p><strong>Credits:</strong> +{{ credits }}</p>

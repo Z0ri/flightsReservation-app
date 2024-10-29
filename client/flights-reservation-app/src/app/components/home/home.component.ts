@@ -48,13 +48,14 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchForm = new FormGroup({
       departureLocation: new FormControl<string>('', Validators.required),
       arrivalLocation: new FormControl<string>('', Validators.required),
-      departureTime: new FormControl<Date | null>(null, Validators.required),
-      arrivalTime: new FormControl<Date | null>(null, Validators.required),
+      departureDate: new FormControl<Date | null>(null, Validators.required),
+      departureTime: new FormControl<string>('00:00')
     });
   }
   ngAfterViewInit(): void {
-    this.getDepartures();
-    this.getDestinations();
+    //get possible departures
+    this.departures = this.searchService.getDepartures(this.destroy$);
+    this.destinations = this.searchService.getDestinations(this.destroy$);
   }
 
   ngOnDestroy(): void {
@@ -67,35 +68,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   search() {
-    if(this.searchForm.valid){
+    if (this.searchForm.valid) {
       const searchParameters = this.searchForm.value;
+      sessionStorage.setItem("searchParameters", JSON.stringify(searchParameters)); // Store in sessionStorage
+      console.log("SET THIS SESSION STORAGE: ", searchParameters);
       this.searchService.search$.next(searchParameters);
       this.router.navigate(['/search-page']);
     }
   }
-  //get possible destinations
-  getDestinations(){
-    this.searchService.fetchFlights().pipe(takeUntil(this.destroy$))
-    .subscribe((flights: Flight[])=>{
-      flights.forEach(flight => {
-        if(!this.destinations.includes(flight.arrivalLocation)){
-          this.destinations.push(flight.arrivalLocation);
-        }
-      });
-    });
-    this.cd.detectChanges();
-  }
-
-  //get possible departures
-  getDepartures(){
-    this.searchService.fetchFlights().pipe(takeUntil(this.destroy$))
-    .subscribe((flights: Flight[])=>{
-      flights.forEach(flight => {
-        if(!this.departures.includes(flight.departureLocation)){
-          this.departures.push(flight.departureLocation);
-        }
-      });
-    });
-    this.cd.detectChanges();
-  }
+  
 }

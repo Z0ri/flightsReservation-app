@@ -18,16 +18,14 @@
     
         <mat-form-field class="departure-date">
             <mat-label>Choose a departure date</mat-label>
-            <input matInput [matDatepicker]="departurePicker" formControlName="departureTime">
+            <input matInput [matDatepicker]="departurePicker" formControlName="departureDate">
             <mat-datepicker-toggle matIconSuffix [for]="departurePicker"></mat-datepicker-toggle>
             <mat-datepicker #departurePicker></mat-datepicker>
         </mat-form-field>
-    
-        <mat-form-field class="arrival-date">
-            <mat-label>Choose an arrival date</mat-label>
-            <input matInput [matDatepicker]="arrivalPicker" formControlName="arrivalTime">
-            <mat-datepicker-toggle matIconSuffix [for]="arrivalPicker"></mat-datepicker-toggle>
-            <mat-datepicker #arrivalPicker></mat-datepicker>
+
+        <mat-form-field class="departure-time">
+            <mat-label>Insert departure time</mat-label>
+            <input type="time" id="time" matInput formControlName="departureTime">
         </mat-form-field>
     
         <button mat-raised-button type="submit" class="go-btn">GO!</button>

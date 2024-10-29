@@ -24,10 +24,13 @@ export class FlightCardComponent implements AfterViewInit{
   @Input() price!: number;
   @Input() credits!: number;
 
+  departureDate!: Date;
+  arrivalDate!: Date;
 
   ngAfterViewInit(): void {
     //convert times from strings to dates
-    this.departureTime = new Date(this.departureTime);
-    this.arrivalTime = new Date(this.arrivalTime);
+    this.departureDate = new Date(this.departureTime);
+    this.arrivalDate = new Date(this.arrivalTime);
+    this.cd.detectChanges();
   }
 }

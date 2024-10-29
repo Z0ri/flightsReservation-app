@@ -31,7 +31,7 @@ app-navbar{
     margin: 0;
     padding: 0;
 }
-.departure-date, .arrival-date{
+.departure-date{
     width: 250px;
     margin: 0;
     padding: 0;
