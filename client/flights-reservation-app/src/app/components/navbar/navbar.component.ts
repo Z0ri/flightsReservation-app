@@ -4,6 +4,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { SessionStorageService } from '../../services/session-storage.service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,14 +22,15 @@ import { RouterModule } from '@angular/router';
 export class NavbarComponent implements AfterViewInit{
   visible: boolean = false;
 
-  constructor(private cd: ChangeDetectorRef){}
+  constructor(
+    private cd: ChangeDetectorRef,
+    private sessionStorageService: SessionStorageService
+  ){}
 
   ngAfterViewInit(): void {
-    if(typeof window !== 'undefined'){
-      if(sessionStorage.getItem("user")){
-        this.visible = true;
-        this.cd.detectChanges();
-      }
+    if(this.sessionStorageService.checkExistingItem("user")){
+      this.visible = true;
+      this.cd.detectChanges();
     }
   }
 }

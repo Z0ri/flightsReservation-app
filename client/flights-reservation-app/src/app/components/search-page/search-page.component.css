@@ -30,11 +30,12 @@ app-flight-card {
     max-width: 30%;
 }
 
-
-
-
 .example-header-image {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
 }
-  
+
+.search-parameters{
+    margin-top: 2%;
+    margin-left: 1%;
+}

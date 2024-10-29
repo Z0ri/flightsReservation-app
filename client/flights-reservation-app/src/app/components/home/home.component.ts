@@ -13,6 +13,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { SearchService } from '../../services/search.service';
 import { Flight } from '../../models/Flight';
 import { CookieService } from 'ngx-cookie-service';
+import { SessionStorageService } from '../../services/session-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -42,7 +43,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private router: Router,
     private searchService: SearchService,
-    private cookieService: CookieService,
+    private sessionStorageService: SessionStorageService,
     private cd: ChangeDetectorRef
   ) {
     this.searchForm = new FormGroup({
@@ -70,8 +71,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   search() {
     if (this.searchForm.valid) {
       const searchParameters = this.searchForm.value;
-      sessionStorage.setItem("searchParameters", JSON.stringify(searchParameters)); // Store in sessionStorage
-      console.log("SET THIS SESSION STORAGE: ", searchParameters);
+      // if(typeof window !== "undefined"){
+      //   this.sessionStorageService.setItem("searchParameters", JSON.stringify(searchParameters));
+      //   console.log(sessionStorage.getItem("searchParameters"));
+      // }
+      this.sessionStorageService.setItem("searchParameters", JSON.stringify(searchParameters)); // Store search parameters in sessionStorage
       this.searchService.search$.next(searchParameters);
       this.router.navigate(['/search-page']);
     }

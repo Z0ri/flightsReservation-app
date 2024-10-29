@@ -2,6 +2,7 @@
 <div class="error-container" *ngIf="!flightFound">
     <h4 class="no-flight-found">No flight found, update search paramteres: <a routerLink="/home">here</a></h4>
 </div>
+<div class="search-parameters"><h6><strong>RESULTS</strong> {{displayedParameters}}.</h6></div>
 <div class="flights-container" *ngIf="flightFound">
   <app-flight-card 
       *ngFor="let flight of flights" 

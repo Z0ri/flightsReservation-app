@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { FlightCardComponent } from "../../models/flight-card/flight-card.component";
+import { SessionStorageService } from '../../services/session-storage.service';
+import { parse } from 'path';
 
 @Component({
   selector: 'app-search-page',
@@ -28,19 +30,18 @@ import { FlightCardComponent } from "../../models/flight-card/flight-card.compon
 export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy {
   flights: Flight[] = [];
   flightFound: boolean = false;
+  displayedParameters: string = "";
   private destroy$ = new Subject<void>();
 
   constructor(
     private searchService: SearchService,
     private router: Router,
+    private sessionStorageService: SessionStorageService,
     private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        sessionStorage.removeItem("searchParameters");
-      });
+
   }
 
   ngOnDestroy(): void {
@@ -49,15 +50,26 @@ export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    const searchParameters = sessionStorage.getItem("searchParameters");
+    const searchParameters = this.sessionStorageService.getItem("searchParameters");
+
     if (searchParameters) {
       const parsedParameters = JSON.parse(searchParameters);
+
+      //display search query
+      const departureDate = new Date(parsedParameters.departureDate);// Parse the departureDate into a Date object
+      const day = String(departureDate.getDate()).padStart(2, '0');
+      const month = String(departureDate.getMonth() + 1).padStart(2, '0'); 
+      const year = String(departureDate.getFullYear()).slice(-2); 
+      this.displayedParameters = 
+      `from ${parsedParameters.departureLocation} to ${parsedParameters.arrivalLocation}
+      - Departure: ${`${day}/${month}/${year}`} ${parsedParameters.departureTime}`;
+      this.cd.detectChanges(); 
+
       this.searchService.fetchFlights().pipe(takeUntil(this.destroy$))
         .subscribe((flights: Flight[]) => {
           flights.forEach(flight => {
             // Create a Date object for the flight's departure time
             let departureDate = new Date(flight.departureTime);
-            
             // Create a Date object for the search parameters' departure time
             let searchDate = new Date(parsedParameters.departureDate);
             const [searchHours, searchMinutes] = parsedParameters.departureTime.split(':').map(Number);
@@ -69,10 +81,6 @@ export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy {
             if (flight.arrivalLocation === parsedParameters.arrivalLocation &&
                 flight.departureLocation === parsedParameters.departureLocation &&
                 departureDate >= searchDate) {
-              
-              console.log("flight Departure Date: ", departureDate);
-              console.log("parameters Search Date: ", searchDate);
-              console.log("date comparison: ", departureDate >= searchDate);
               this.flightFound = true;
               this.flights.push(flight);
               this.cd.detectChanges();
@@ -82,7 +90,16 @@ export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.searchService.search$.pipe(takeUntil(this.destroy$))
         .subscribe((searchParameters: any) => {
-          sessionStorage.setItem("searchParameters", JSON.stringify(searchParameters)); // Store search parameters in sessionStorage
+          //display search query
+          const departureDate = new Date(searchParameters.departureDate);// Parse the departureDate into a Date object
+          const day = String(departureDate.getDate()).padStart(2, '0');
+          const month = String(departureDate.getMonth() + 1).padStart(2, '0'); 
+          const year = String(departureDate.getFullYear()).slice(-2); 
+          this.displayedParameters = 
+          `from ${searchParameters.departureLocation} to ${searchParameters.arrivalLocation}
+          - Departure: ${`${day}/${month}/${year}`} ${searchParameters.departureTime}`;
+          this.cd.detectChanges(); 
+
           this.searchService.fetchFlights().pipe(takeUntil(this.destroy$))
             .subscribe((flights: Flight[]) => {
               flights.forEach(flight => {
@@ -99,11 +116,7 @@ export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy {
                 // Check if the flight matches the search criteria
                 if (flight.arrivalLocation === searchParameters.arrivalLocation &&
                     flight.departureLocation === searchParameters.departureLocation &&
-                    departureDate >= searchDate) {
-  
-                  console.log("Flight Departure Date: ", departureDate.toISOString()); // Log in ISO format for clarity
-                  console.log("Search Date: ", searchDate.toISOString()); // Log in ISO format for clarity
-                  console.log("Date Comparison: ", departureDate >= searchDate);                      
+                    departureDate >= searchDate) {                     
                   this.flightFound = true;
                   this.flights.push(flight);
                   this.cd.detectChanges();
