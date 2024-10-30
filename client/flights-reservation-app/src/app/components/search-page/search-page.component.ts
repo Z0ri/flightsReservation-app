@@ -7,10 +7,8 @@ import { NavigationEnd, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { Router } from '@angular/router';
 import { FlightCardComponent } from "../../models/flight-card/flight-card.component";
 import { SessionStorageService } from '../../services/session-storage.service';
-import { parse } from 'path';
 
 @Component({
   selector: 'app-search-page',
@@ -35,7 +33,6 @@ export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private searchService: SearchService,
-    private router: Router,
     private sessionStorageService: SessionStorageService,
     private cd: ChangeDetectorRef
   ) {}
@@ -72,10 +69,11 @@ export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy {
             let departureDate = new Date(flight.departureTime);
             // Create a Date object for the search parameters' departure time
             let searchDate = new Date(parsedParameters.departureDate);
-            const [searchHours, searchMinutes] = parsedParameters.departureTime.split(':').map(Number);
-            
-            // Set the hours and minutes for searchDate based on the search time
-            searchDate.setHours(searchHours, searchMinutes);
+            if(parsedParameters.departureTime){
+              const [searchHours, searchMinutes] = parsedParameters.departureTime.split(':').map(Number);
+              // Set the hours and minutes for searchDate based on the search time
+              searchDate.setHours(searchHours, searchMinutes);
+            }
   
             // Check if the flight matches the search criteria
             if (flight.arrivalLocation === parsedParameters.arrivalLocation &&
@@ -108,10 +106,13 @@ export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy {
   
                 // Create a Date object for the search parameters' departure time
                 let searchDate = new Date(searchParameters.departureDate);
-                const [searchHours, searchMinutes] = searchParameters.departureTime.split(':').map(Number);
                 
-                // Set the hours and minutes for searchDate based on the search time
-                searchDate.setHours(searchHours, searchMinutes);
+                if(searchParameters.departureTime){
+                  const [searchHours, searchMinutes] = searchParameters.departureTime.split(':').map(Number);
+                
+                  // Set the hours and minutes for searchDate based on the search time
+                  searchDate.setHours(searchHours, searchMinutes);
+                }
   
                 // Check if the flight matches the search criteria
                 if (flight.arrivalLocation === searchParameters.arrivalLocation &&
