@@ -71,10 +71,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   search() {
     if (this.searchForm.valid) {
       const searchParameters = this.searchForm.value;
-      // if(typeof window !== "undefined"){
-      //   this.sessionStorageService.setItem("searchParameters", JSON.stringify(searchParameters));
-      //   console.log(sessionStorage.getItem("searchParameters"));
-      // }
       this.sessionStorageService.setItem("searchParameters", JSON.stringify(searchParameters)); // Store search parameters in sessionStorage
       this.searchService.search$.next(searchParameters);
       this.router.navigate(['/search-page']);

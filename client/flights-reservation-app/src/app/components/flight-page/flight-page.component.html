@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<h4 class="presentation-info">Flight from {{departureLocation}}({{departureAirport}}) to {{arrivalLocation}}({{arrivalAirport}})</h4>
+<div class="map-info-container">
+    <div class="info-container">
+        <h2 class="info-title">Flight info:</h2>
+        <ul>
+            <li class="airline"><strong>Airline:</strong> {{airline}}</li>
+            <li class="km"><strong>Km:</strong> </li>
+            <li class="departure-airport"><strong>Departure airport:</strong> {{departureAirport }}</li>
+            <li class="arrival-airport"><strong>Arrival airport:</strong> {{arrivalAirport }}</li>
+            <li class="departure-time"><strong>Departure date & time:</strong> {{departureTime | date: 'dd/MM/yy HH,mm'}}</li>
+            <li class="arrival-time"><strong>Arrival date & time:</strong> {{arrivalTime | date: 'dd/MM/yy HH,mm'}}</li>
+            <li class="flight-time"><strong>Flight duration:</strong> </li>
+        </ul>
+    </div>
+    <div class="map-container">
+        <google-map [zoom]="zoom" [center]="center" [options]="options" class="google-map" width="800" height="600"></google-map>
+    </div>
+</div>
+<div class="purchase-container">
+    <h4>Ticket price: </h4>
+    <button mat-raised-button class="purchase-btn" (click)="purchase()">Purchase</button>
+</div>

@@ -1,0 +1,38 @@
+.presentation-info{
+    padding-top: 40px;
+    padding-left: 20px;
+    font-size: 50px;
+}
+.map-info-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.info-title{
+    font-weight: bold;
+}
+.info-container{
+    flex: 1;
+    font-size: 30px;
+    margin-left: 20px;
+}
+.info-container li{
+    margin-top: 30px;
+}
+.map-container{
+    flex: 1;
+}
+.purchase-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+.purchase-container .purchase-btn{
+    font-size: 25px;
+    height: 50px;
+    width: 200px;
+    margin-bottom: 20px;
+}

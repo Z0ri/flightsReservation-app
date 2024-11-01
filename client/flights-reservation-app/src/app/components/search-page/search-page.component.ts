@@ -25,7 +25,7 @@ import { SessionStorageService } from '../../services/session-storage.service';
   styleUrls: ['./search-page.component.css' // corrected from 'styleUrl' to 'styleUrls'
   ]
 })
-export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SearchPageComponent implements AfterViewInit, OnDestroy {
   flights: Flight[] = [];
   flightFound: boolean = false;
   displayedParameters: string = "";
@@ -36,10 +36,6 @@ export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy {
     private sessionStorageService: SessionStorageService,
     private cd: ChangeDetectorRef
   ) {}
-
-  ngOnInit(): void {
-
-  }
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -79,9 +75,10 @@ export class SearchPageComponent implements OnInit, AfterViewInit, OnDestroy {
             if (flight.arrivalLocation === parsedParameters.arrivalLocation &&
                 flight.departureLocation === parsedParameters.departureLocation &&
                 departureDate >= searchDate) {
-              this.flightFound = true;
-              this.flights.push(flight);
-              this.cd.detectChanges();
+
+                this.flightFound = true;
+                this.flights.push(flight);
+                this.cd.detectChanges();
             }
           });
         });

@@ -45,3 +45,6 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+#protect google maps api key
+C:\Users\lorir\Desktop\Informatica\js\framework\Angular\flights-reservation-app\client\flights-reservation-app\src\index.html
